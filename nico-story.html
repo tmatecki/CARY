@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Nico Story — The Window Is Open</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ─── NICO BRAND — matches investor deck ─── */
+
+/* ─── NICO tokens — lighter, more readable ─── */
+:root{
+  --ink:#16172a;
+  --deep:#1c1d36;
+  --panel:#252641;
+  --panel2:#2e2f50;
+  --border:rgba(255,255,255,.12);
+  --border2:rgba(255,255,255,.22);
+  --cyan:#11F3FE;
+  --violet:#8b65eb;
+  --pink:#FE1EDC;
+  --white:#ffffff;
+  --muted:rgba(255,255,255,.82);
+  --dim:rgba(255,255,255,.50);
+  --faint:rgba(255,255,255,.07);
+  --font:'Manrope',sans-serif;
+}
+
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-font-smoothing: antialiased; }
+body { background: var(--ink); color: var(--white); min-height:100vh; font-family: var(--font); font-weight: 300; line-height: 1.8; overflow-x: hidden; }
+a { color: var(--cyan); }
+
+/* ─── BACK NAV ─── */
+.back-nav {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 10px; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--dim);
+  text-decoration: none; border: 1px solid var(--border);
+  border-radius: 4px; padding: 6px 14px;
+  transition: color .2s, border-color .2s; position: relative; z-index: 2;
+}
+.back-nav:hover { color: var(--cyan); border-color: rgba(17,243,254,.35); }
+.back-nav-wrap { max-width: 1100px; margin: 0 auto; padding: 1.5rem 4rem .5rem; }
+
+/* ─── MASTHEAD ─── */
+.masthead {
+  border-bottom: 2px solid rgba(17,243,254,.25);
+  padding: 2rem 4rem 1.5rem;
+  display: flex; justify-content: space-between; align-items: flex-end;
+  position: relative;
+}
+.masthead::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 4px; background: linear-gradient(90deg, var(--cyan), var(--violet), var(--pink));
+}
+.pub-name { font-family: var(--font); font-size: clamp(2.2rem,5vw,4rem); font-weight: 800; letter-spacing: -1px; line-height: 1; color: var(--white); }
+.pub-meta { text-align: right; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--dim); line-height: 1.9; }
+.edition-bar { background: var(--deep); border-bottom: 1px solid var(--border); color: var(--dim); font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.4rem 4rem; display: flex; justify-content: space-between; }
+
+/* ─── HERO ─── */
+.hero { padding: 4rem 4rem 3rem; max-width: 1100px; margin: 0 auto; border-bottom: 1px solid var(--border); }
+.hero-kicker { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cyan); font-weight: 700; margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.8rem; }
+.hero-kicker::after { content: ''; flex: 1; height: 1px; background: rgba(17,243,254,.3); }
+.hero h1 { font-family: var(--font); font-size: clamp(2.2rem,5vw,4.2rem); font-weight: 800; line-height: 1.06; letter-spacing: -.03em; max-width: 820px; margin-bottom: 1.8rem; color: var(--white); }
+.hero h1 em { font-style: italic; color: var(--cyan); }
+.hero-sub { font-size: 1.1rem; font-weight: 400; color: var(--muted); max-width: 640px; line-height: 1.6; border-left: 3px solid var(--cyan); padding-left: 1.2rem; }
+
+/* ─── LAYOUT ─── */
+.content-grid { display: grid; grid-template-columns: 1fr 290px; gap: 0; max-width: 1100px; margin: 0 auto; padding: 0 4rem; border-bottom: 1px solid var(--border); }
+.main-col { padding: 3rem 3rem 3rem 0; border-right: 1px solid var(--border); }
+.side-col { padding: 3rem 0 3rem 2.5rem; }
+
+/* ─── CHAPTERS ─── */
+.chapter { margin-bottom: 3.5rem; }
+.chapter-label { font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--cyan); margin-bottom: 0.6rem; font-weight: 700; }
+.chapter h2 { font-family: var(--font); font-size: 1.7rem; font-weight: 700; line-height: 1.2; margin-bottom: 1.2rem; letter-spacing: -.3px; color: var(--white); }
+.chapter p { font-size: 1rem; margin-bottom: 1.1rem; color: var(--muted); }
+.chapter p strong { font-weight: 600; color: var(--white); }
+
+/* ─── PULL QUOTES ─── */
+.pull-quote { margin: 2.5rem 0; padding: 1.8rem 0; border-top: 2px solid rgba(17,243,254,.3); border-bottom: 2px solid rgba(17,243,254,.3); position: relative; }
+.pull-quote::before { content: '"\2018'; font-family: var(--font); font-size: 7rem; line-height: 1; color: var(--cyan); position: absolute; top: -1.5rem; left: -0.5rem; opacity: 0.3; }
+.pull-quote blockquote { font-family: var(--font); font-size: 1.35rem; font-style: italic; font-weight: 300; line-height: 1.5; padding-left: 2rem; color: var(--white); }
+
+/* ─── STAT BLOCKS ─── */
+.stat-block { background: var(--panel2); border: 1px solid var(--border); border-radius: 8px; padding: 1.2rem; margin-bottom: 1rem; position: relative; overflow: hidden; }
+.stat-block::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--cyan), transparent); }
+.stat-block .number { font-family: var(--font); font-size: 2.4rem; font-weight: 800; color: var(--cyan); line-height: 1; display: block; }
+.stat-block .label { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 0.4rem; color: var(--dim); line-height: 1.4; }
+
+/* ─── SIDEBAR ─── */
+.sidebar-box { border: 1px solid var(--border); background: var(--panel2); border-radius: 8px; padding: 1.2rem; margin-bottom: 1.5rem; }
+.sidebar-box h3 { font-size: 10.5px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--cyan); border-bottom: 1px solid var(--border); padding-bottom: 0.6rem; margin-bottom: 1rem; }
+.sidebar-box p { font-size: 0.83rem; line-height: 1.65; color: var(--muted); margin-bottom: 0.6rem; }
+.sidebar-box p:last-child { margin-bottom: 0; }
+.comparison-table { width: 100%; border-collapse: collapse; font-size: 0.78rem; margin: 0.5rem 0; }
+.comparison-table td { padding: 0.45rem 0.3rem; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--muted); }
+.comparison-table td:first-child { font-weight: 600; color: var(--dim); width: 45%; }
+.comparison-table td:last-child { color: var(--white); }
+
+/* ─── INTERSTITIAL ─── */
+.interstitial { background: var(--panel); color: var(--white); padding: 5rem 4rem; text-align: center; position: relative; overflow: hidden; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.interstitial::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 50%, rgba(17,243,254,.08) 0%, transparent 60%), radial-gradient(ellipse at 70% 50%, rgba(139,101,235,.08) 0%, transparent 60%); }
+.interstitial h2 { font-family: var(--font); font-size: clamp(1.6rem,3.5vw,2.8rem); font-weight: 700; line-height: 1.15; max-width: 800px; margin: 0 auto 1.5rem; position: relative; z-index: 1; color: var(--white); }
+.interstitial h2 em { color: var(--cyan); font-style: italic; }
+.interstitial p { font-size: 1rem; max-width: 580px; margin: 0 auto; color: var(--muted); position: relative; z-index: 1; line-height: 1.7; }
+
+/* ─── TIMELINE ─── */
+.timeline { position: relative; padding-left: 2.5rem; margin: 1.5rem 0; }
+.timeline::before { content: ''; position: absolute; left: 0.6rem; top: 0.4rem; bottom: 0.4rem; width: 1px; background: linear-gradient(to bottom, var(--cyan), var(--violet)); }
+.timeline-item { position: relative; margin-bottom: 2rem; }
+.timeline-item::before { content: ''; position: absolute; left: -2.1rem; top: 0.55rem; width: 10px; height: 10px; border-radius: 50%; background: var(--cyan); border: 2px solid var(--ink); }
+.timeline-year { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cyan); font-weight: 700; margin-bottom: 0.2rem; }
+.timeline-item p { font-size: 0.9rem; color: var(--muted); line-height: 1.55; }
+.timeline-item strong { font-weight: 600; display: block; color: var(--white); margin-bottom: 0.2rem; font-size: 0.95rem; }
+
+/* ─── HIGHLIGHT BAND ─── */
+.highlight-band { background: rgba(17,243,254,.06); border-left: 4px solid var(--cyan); padding: 1.2rem 1.5rem; margin: 2rem 0; font-size: 0.98rem; color: var(--muted); line-height: 1.7; border-radius: 0 6px 6px 0; }
+.highlight-band strong { color: var(--white); font-weight: 600; }
+
+/* ─── ORNAMENT ─── */
+.ornament { text-align: center; font-size: 1rem; color: var(--cyan); margin: 2.5rem 0; letter-spacing: 1rem; opacity: .4; }
+
+/* ─── DROPCAP ─── */
+.dropcap::first-letter { font-family: var(--font); font-size: 3.5rem; font-weight: 800; float: left; line-height: 0.82; margin-right: 0.12em; margin-top: 0.08em; color: var(--cyan); }
+
+/* ─── FINALE ─── */
+.finale { max-width: 1100px; margin: 0 auto; padding: 4rem 4rem 5rem; }
+.finale h2 { font-family: var(--font); font-size: clamp(1.8rem,3.5vw,2.8rem); font-weight: 800; letter-spacing: -0.5px; line-height: 1.12; margin-bottom: 2rem; max-width: 760px; color: var(--white); }
+.finale p { font-size: 1.05rem; margin-bottom: 1.2rem; max-width: 700px; color: var(--muted); }
+.finale .tagline { font-family: var(--font); font-size: 1.4rem; font-style: italic; font-weight: 300; margin-top: 2.5rem; color: var(--cyan); border-left: 4px solid var(--violet); padding-left: 1.2rem; line-height: 1.4; }
+
+/* ─── FOOTER ─── */
+footer { border-top: 1px solid var(--border); padding: 1.5rem 4rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dim); }
+footer a { color: var(--cyan); text-decoration: none; font-weight: 600; }
+
+/* ─── CTA STRIP ─── */
+.cta-strip { background: var(--panel); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 3rem 4rem; text-align: center; }
+.cta-strip p { font-size: 13px; color: var(--dim); margin-bottom: 1.2rem; letter-spacing: .06em; text-transform: uppercase; font-weight: 700; }
+.cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.cta-primary { display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg,var(--cyan),#9AFFFC); color: #10101a; box-shadow:0 0 20px rgba(17,243,254,.2); font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; text-decoration: none; border-radius: 5px; padding: 11px 22px; transition: opacity .2s; }
+.cta-primary:hover { opacity: .88; }
+.cta-secondary { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: var(--cyan); font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; text-decoration: none; border: 2px solid var(--cyan); border-radius: 5px; padding: 9px 22px; transition: background .2s; }
+.cta-secondary:hover { background: rgba(17,243,254,.08); }
+
+@media (max-width: 768px) {
+  .masthead, .edition-bar, .hero, .content-grid, .interstitial, .finale, footer, .cta-strip, .back-nav-wrap { padding-left: 1.5rem; padding-right: 1.5rem; }
+  .content-grid { grid-template-columns: 1fr; }
+  .main-col { border-right: none; padding-right: 0; }
+  .side-col { padding-left: 0; border-top: 1px solid var(--border); padding-top: 2rem; }
+  .hero h1 { font-size: 2rem; }
+}
+
+/* ─── NAVIGATION BAR — matches deck style ─── */
+.deck-nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:clamp(14px,2vh,20px) clamp(18px,4vw,48px);
+  border-bottom:1px solid rgba(17,243,254,.18);
+  background:rgba(22,23,42,.96);
+  position:sticky;top:0;z-index:100;
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+}
+.deck-nav-logo{
+  display:flex;align-items:center;gap:10px;text-decoration:none;
+}
+.deck-nav-logo svg{height:28px;width:auto}
+.deck-nav-wordmark{
+  font-family:var(--font);font-size:13px;font-weight:800;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--white);
+}
+.deck-nav-links{display:flex;align-items:center;gap:clamp(10px,2vw,20px)}
+.deck-nav-pill{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:var(--font);font-size:10px;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;
+  text-decoration:none;border-radius:4px;
+  padding:7px 14px;transition:all .2s;
+  border:1px solid var(--border2);
+  color:var(--dim);
+}
+.deck-nav-pill:hover{color:var(--cyan);border-color:rgba(17,243,254,.4);background:rgba(17,243,254,.05)}
+.deck-nav-pill.primary{
+  background:rgba(17,243,254,.1);
+  border-color:rgba(17,243,254,.4);
+  color:var(--cyan);
+}
+.deck-nav-pill.primary:hover{background:rgba(17,243,254,.18)}
+@media(max-width:480px){
+  .deck-nav{padding:10px 14px}
+  .deck-nav-wordmark{display:none}
+  .deck-nav-pill{font-size:9px;padding:5px 10px}
+}
+
+</style>
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<nav class="deck-nav">
+  <a class="deck-nav-logo" href="index.html">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220" fill="none" aria-label="NICO">
+  <defs><linearGradient id="nlg" x1="20" y1="110" x2="200" y2="110" gradientUnits="userSpaceOnUse">
+    <stop stop-color="#682FF3"/><stop offset="1" stop-color="#9AFFFC"/></linearGradient></defs>
+  <path d="M71.4286 20C64.6749 20 57.9873 21.3302 51.7477 23.9148C45.5081 26.4993 39.8387 30.2875 35.0631 35.0631C30.2875 39.8387 26.4993 45.5081 23.9148 51.7477C21.3302 57.9873 20 64.6749 20 71.4286L71.4286 71.4286V20Z" fill="url(#nlg)"/>
+  <path d="M84.2858 20C91.0395 20 97.727 21.3302 103.967 23.9148C110.206 26.4993 115.876 30.2875 120.651 35.0631C125.427 39.8387 129.215 45.5081 131.8 51.7477C134.384 57.9873 135.714 64.6749 135.714 71.4286L84.2858 71.4286V20Z" fill="url(#nlg)"/>
+  <path d="M135.714 200C128.961 200 122.273 198.67 116.033 196.085C109.794 193.501 104.124 189.713 99.3487 184.937C94.5731 180.161 90.7849 174.492 88.2004 168.252C85.6159 162.013 84.2856 155.325 84.2856 148.571L135.714 148.571V200Z" fill="url(#nlg)"/>
+  <path d="M148.571 200C155.325 200 162.013 198.67 168.252 196.085C174.492 193.501 180.161 189.713 184.937 184.937C189.713 180.161 193.501 174.492 196.085 168.252C198.67 162.013 200 155.325 200 148.571L148.571 148.571V200Z" fill="url(#nlg)"/>
+  <path d="M20 84.2857H71.4286V135.714H20V84.2857Z" fill="url(#nlg)"/>
+  <path d="M84.2856 84.2857H135.714V135.714H84.2856V84.2857Z" fill="url(#nlg)"/>
+  <path d="M148.571 84.2857H200V135.714H148.571V84.2857Z" fill="url(#nlg)"/>
+  <path d="M148.571 45.7143C148.571 31.5127 160.084 20 174.286 20C188.487 20 200 31.5127 200 45.7143V71.4286H148.571V45.7143Z" fill="url(#nlg)"/>
+  <path d="M20 174.286C20 188.487 31.5127 200 45.7143 200C59.9159 200 71.4286 188.487 71.4286 174.286V148.571H20V174.286Z" fill="url(#nlg)"/>
+</svg>
+    <span class="deck-nav-wordmark">Nico</span>
+  </a>
+  <div class="deck-nav-links">
+    <a class="deck-nav-pill" href="nico_founders.html">← How Neobanks Are Built</a>
+    <a class="deck-nav-pill primary" href="index.html">Investor Deck ↗</a>
+    
+  </div>
+</nav>
+<header class="masthead">
+  <div class="pub-name">Nico<br>Money</div>
+  <div class="pub-meta">
+    Neobanking & Financial Access<br>
+    March 2026<br>
+    nicobank.co · nico.money
+  </div>
+</header>
+<div class="edition-bar">
+  <span>Full Analysis</span>
+  <span>The Caribbean Opportunity</span>
+  <span>Banking for Humans</span>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-kicker">Nico Story</div>
+  <h1>The Window Is Open.<br><em>Right Now.</em></h1>
+  <p class="hero-sub">How the rise of Revolut, the miracle of Nubank, and a world desperately hungry for financial dignity converge to make this the single greatest moment in history to build a neobank — and why NICO Bank is standing exactly at the crossroads.</p>
+</section>
+
+<!-- MAIN CONTENT GRID -->
+<div class="content-grid">
+
+  <!-- MAIN COLUMN -->
+  <main class="main-col">
+
+    <div class="chapter">
+      <div class="chapter-label">Chapter I — The Proof of Concept</div>
+      <h2>Revolut Did the Impossible. Twice.</h2>
+
+      <p class="dropcap">In 2015, a frustrated Credit Suisse trader named Nikolay Storonsky was sick of paying outrageous foreign exchange fees every time he traveled. So he built an app. Nobody thought a company without branches, without centuries of heritage, and without a banking license could challenge the establishment. They were wrong.</p>
+
+      <p>Eleven years later, Revolut is a <strong>$75 billion company</strong> generating over $6 billion in annual revenue, profitable for the fifth consecutive year, and filing for a U.S. national bank charter. It operates as a licensed bank in over 30 of its 40 markets. It has 68 million retail customers. What began as a travel card has become one of the most formidable financial institutions on earth — built entirely on software, trust, and the radical idea that banking should be simple.</p>
+
+      <p>The numbers are almost difficult to process. In 2025 alone, Revolut generated <strong>$685,000 every single hour</strong>. Its profit before tax grew 57% year-on-year to $2.3 billion. This is not a startup story anymore. This is the proof that the neobank model doesn't just work — it can outperform the incumbents that laughed at it for a decade.</p>
+
+      <div class="pull-quote">
+        <blockquote>What Revolut proved is that trust lives in your phone now — not in marble lobbies and mahogany desks.</blockquote>
+      </div>
+
+      <p>The lesson isn't that Revolut is extraordinary. The lesson is that the world was <em>ready</em>. Ready for convenience. Ready for transparency. Ready to be treated like an intelligent adult by their bank. Revolut simply arrived first, in Europe, at the right moment. The question that matters is: where is the <em>next</em> right moment?</p>
+    </div>
+
+    <div class="ornament">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+    <div class="chapter">
+      <div class="chapter-label">Chapter II — The Origin Story That Changed Everything</div>
+      <h2>Nubank: A Startup Becomes a Civilization</h2>
+
+      <p>In 2013, David Vélez moved from Silicon Valley to São Paulo. What he found was a banking system so entrenched, so comfortable in its treatment of customers, of customers, that a credit card application could take months and still be rejected. Average interest rates hovered near 300% annually. Fees were hidden. Service was contemptuous. Sixty percent of adults were unbanked or underbanked. The banks didn't care, because there was no competition.</p>
+
+      <p>Vélez founded Nubank with a simple idea: banking should not be a punishment. He offered a no-fee credit card. You applied on your phone. You were approved or rejected in minutes. That was it. No branches. No paperwork theater. No hidden charges.</p>
+
+      <p>Brazil had 215 million people who needed exactly this. Nubank grew so fast the waiting list hit 20 million people before the company had 4 million customers. By 2021 it went public. By 2024 it served <strong>114 million customers</strong> and generated $11.5 billion in revenue. By 2025, net income crossed $2.9 billion — a 37% year-on-year increase.</p>
+
+      <div class="highlight-band">
+        Nubank now makes approximately <strong>$1.48 million per hour in revenue</strong> — more than Revolut and Chime combined. It is the most profitable neobank in the world. It was built in a market everyone dismissed as "too complex," "too risky," "too unbanked."
+      </div>
+
+      <p>The so-called weakness of the Brazilian market — its vast unbanked population, its distrust of traditional banks, its mobile-first young population, its enormous remittance flows — turned out to be <strong>the engine of Nubank's success</strong>, not an obstacle to it.</p>
+
+      <p>The world watched Brazil and called it an anomaly. It wasn't. It was a template.</p>
+    </div>
+
+    <div class="ornament">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+    <div class="chapter">
+      <div class="chapter-label">Chapter III — The World in 2026</div>
+      <h2>1.3 Billion People. No Bank. A Phone in Their Pocket.</h2>
+
+      <p>Here is the defining tension of our moment: the World Bank's Global Findex 2025 report confirms that 79% of adults globally now have a financial account — a historic high. And yet <strong>1.3 billion adults remain completely excluded</strong> from the formal financial system. More than half of them own a smartphone.</p>
+
+      <p>In Latin America and the Caribbean, the picture is particularly striking. Account ownership across the region has climbed from 39% in 2011 to 70% in 2024 — extraordinary progress. And yet the region still <em>trails</em> the average for low-and-middle-income countries. Pockets of deep exclusion persist. Mobile money usage surged 15 percentage points in just three years. The infrastructure is arriving. The appetite is enormous. The incumbent banks are still charging fees that make it cheaper for a household to share one account than for each member to hold their own.</p>
+
+      <p>Women bear the sharpest edge of this exclusion. In Latin America and the Caribbean, account fees are so high that women frequently rely on a family member's account rather than opening their own — trading financial autonomy for affordability. When you can't hold your own account, you can't build your own credit history. You can't receive your own salary digitally. You can't save, borrow, or invest in your own name. Financial exclusion is not just an inconvenience. It is a ceiling.</p>
+
+      <p>The convergence of forces right now is unlike anything in the history of banking: <strong>smartphone penetration accelerating</strong>, regulatory frameworks maturing, AI making financial services cheaper to deliver than ever before, and a generation that has grown up expecting everything to be instant, mobile, and transparent. The window is not opening. It is already open.</p>
+    </div>
+
+  </main>
+
+  <!-- SIDEBAR -->
+  <aside class="side-col">
+
+    <div class="stat-block">
+      <span class="number">$13B</span>
+      <span class="label">Nubank annualized revenue, 2025 — up from near zero in 2013</span>
+    </div>
+    <div class="stat-block">
+      <span class="number">$6B</span>
+      <span class="label">Revolut annual revenue, 2025 — record profitability for 5th consecutive year</span>
+    </div>
+    <div class="stat-block">
+      <span class="number">1.3B</span>
+      <span class="label">Adults globally still without a financial account, 2025</span>
+    </div>
+    <div class="stat-block">
+      <span class="number">60%+</span>
+      <span class="label">Dominican Republic adults unbanked or underbanked</span>
+    </div>
+    <div class="stat-block">
+      <span class="number">$12B</span>
+      <span class="label">Annual remittance inflows into the Dominican Republic alone</span>
+    </div>
+
+    <div class="sidebar-box">
+      <h3>The Nubank Playbook</h3>
+      <p>Every successful neobank has followed the same sequence: find an underserved population ignored by incumbents → remove the most painful friction → go mobile-first → earn trust before earning revenue.</p>
+      <p>Nubank found Brazil's unbanked millions. Revolut found Europe's fee-tired travelers. The playbook repeats wherever the problem is real and the incumbents are asleep.</p>
+    </div>
+
+    <div class="sidebar-box">
+      <h3>The Dominican Republic</h3>
+      <table class="comparison-table">
+        <tr><td>Population</td><td>11+ million</td></tr>
+        <tr><td>Unbanked / underbanked</td><td>60%+</td></tr>
+        <tr><td>Cash transactions</td><td>80%+</td></tr>
+        <tr><td>Remittance inflows</td><td>$12B/yr</td></tr>
+        <tr><td>Smartphone adoption</td><td>Rising fast</td></tr>
+        <tr><td>Regulatory environment</td><td>Improving</td></tr>
+      </table>
+      <p style="margin-top:0.8rem;">This profile is almost identical to Brazil in 2013 — the year Nubank launched.</p>
+    </div>
+
+    <div class="sidebar-box">
+      <h3>Why This Moment</h3>
+      <p><strong>AI lowers the cost floor.</strong> What required 500 bank employees in 2005 can now be handled by software, reducing the cost of serving low-income customers to near zero.</p>
+      <p><strong>Regulators are ready.</strong> Caribbean and LatAm regulators, watching Nubank's success, are actively creating frameworks for digital banking.</p>
+      <p><strong>Trust has shifted.</strong> Younger generations trust apps more than branches. The bias is now in favor of the challenger.</p>
+    </div>
+
+  </aside>
+</div>
+
+<!-- INTERSTITIAL -->
+<div class="interstitial">
+  <h2>History rewards the people who arrive <em>one chapter early</em> — before the market is proven, but after the infrastructure is ready.</h2>
+  <p>Nubank arrived in Brazil when 60% of the country was unbanked and everyone said the market was too risky. Revolut arrived in Europe when everyone said the incumbents were too entrenched. They were both right, and they were both wrong — which is exactly the position worth being in.</p>
+</div>
+
+<!-- SECOND GRID: NICO's story -->
+<div class="content-grid" style="border-top: none;">
+  <main class="main-col">
+
+    <div class="chapter">
+      <div class="chapter-label">Chapter IV — Enter NICO</div>
+      <h2>"Bank Less. Vive Más." The Mission That Changes Everything.</h2>
+
+      <p class="dropcap">NICO Bank didn't start with a business plan. It started with a feeling — the specific, universal frustration of watching people you care about be failed by institutions that were supposed to serve them. In the Dominican Republic, and across the Caribbean, that frustration is not abstract. It is daily. It is the 80% of transactions still conducted in cash because accounts are too expensive to open. It is the $12 billion in annual remittances that flow into the country through corridors designed to extract fees rather than deliver value. It is the woman who cannot build her own credit history because her household can only afford one bank account, and it isn't in her name.</p>
+
+      <p>NICO is being built on a foundation of over <strong>100 years of combined experience</strong> in banking, licensing, and scaling financial products. But its character is defined by something different: the conviction that banking should work quietly in the background — that it should reduce anxiety, not cause it.</p>
+
+      <div class="pull-quote">
+        <blockquote>We are the bank that helps, the bank that understands, and the bank that is there whenever you need it.</blockquote>
+      </div>
+
+      <p>The product architecture reflects this philosophy with unusual precision. <strong>NICO Fintech Bites</strong> delivers financial education in small, non-invasive doses throughout the app — building literacy without lecturing. <strong>Automatic Round-Ups</strong> help parents save for their children's futures through the invisible alchemy of small change adding up. <strong>Empathetic Credit</strong> — BNPL products that learn from your behavior rather than demanding a credit history you were never given the chance to build — addresses the cruelest catch-22 in traditional banking: to get credit, you must already have credit.</p>
+
+      <p>The distribution strategy is equally considered. NICO's growth runs along <strong>remittance corridors</strong> — the routes along which families send money home. When a recipient adopts NICO to receive funds more efficiently, they become a user. When they become a user, they bring their family. When families join, communities follow. It is the same organic, trust-driven acquisition flywheel that powered Nubank — not bought through advertising, but earned through genuine utility.</p>
+    </div>
+
+    <div class="ornament">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+    <div class="chapter">
+      <div class="chapter-label">Chapter V — The Convergence</div>
+      <h2>Why Now Is the Only Moment That Makes Sense</h2>
+
+      <p>The timing of NICO's launch is not coincidence. It is the result of extraordinary convergence — several forces arriving at the same place at the same time for the first time in history.</p>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-year">The Proof</div>
+          <strong>Nubank validates the underserved market thesis</strong>
+          <p>A decade of Nubank proves conclusively that unbanked populations are not a liability — they are the opportunity. Brazil was dismissed as too chaotic, too cash-dependent, too distrustful of institutions. It became the birthplace of the world's most profitable neobank.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">The Model</div>
+          <strong>Revolut validates the global expansion playbook</strong>
+          <p>Revolut's journey from a travel card to a $75 billion global bank proves that neobanks can scale beyond their home market without losing their identity — and that profitability and mission are not in conflict.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">The Infrastructure</div>
+          <strong>AI makes the unit economics work for low-income customers</strong>
+          <p>The cost of delivering financial services has collapsed. What once required expensive branches and large teams can now be delivered through intelligent software at a marginal cost approaching zero — making it commercially viable, for the first time, to serve customers that traditional banks cannot afford to serve.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">The Moment</div>
+          <strong>The Caribbean is at the tipping point</strong>
+          <p>Smartphone adoption is accelerating. Regulatory frameworks are improving. The 60%+ of Dominican adults who are unbanked are not resistant to financial services — they are resistant to the version of financial services they've been offered. NICO offers a different version.</p>
+        </div>
+      </div>
+
+      <p>The window that Nubank found in Brazil in 2013 is open right now, in 2026, in the Caribbean. The proof of concept exists. The technology exists. The regulatory pathway exists. The population — millions of people who deserve better, who are ready for better, who will reward whoever treats them well — exists.</p>
+
+      <div class="highlight-band">
+        History does not give long windows. Nubank's Brazil window lasted perhaps five years before competition arrived. Revolut's European window lasted three. The Caribbean's window is open now. The question is not whether NICO should build — the question is how fast.
+      </div>
+    </div>
+
+  </main>
+
+  <aside class="side-col" style="padding-top: 3rem;">
+
+    <div class="sidebar-box">
+      <h3>The NICO Way</h3>
+      <p>NICO's philosophy — "Bank Less. Vive Más." — is not a tagline. It is a product decision. Every feature is built to reduce the mental load of banking, not increase it.</p>
+      <p>Financial education without lectures. Savings without effort. Credit without history. Banking without intimidation.</p>
+    </div>
+
+    <div class="sidebar-box">
+      <h3>What NICO is Building</h3>
+      <table class="comparison-table">
+        <tr><td>Instant Access</td><td>No paperwork, no minimums, no hidden fees</td></tr>
+        <tr><td>Round-Ups</td><td>Automated savings for children's futures</td></tr>
+        <tr><td>Fintech Bites</td><td>In-app financial literacy, daily</td></tr>
+        <tr><td>Empathetic Credit</td><td>BNPL that learns with you</td></tr>
+        <tr><td>Remittance-first</td><td>Acquisition via inbound corridors</td></tr>
+        <tr><td>AI Core</td><td>Personalized, intelligent banking</td></tr>
+      </table>
+    </div>
+
+    <div class="sidebar-box" style="background: var(--panel2); border-color: rgba(17,243,254,.2);">
+      <h3 style="color: var(--cyan); border-color: var(--border);">The Parallel</h3>
+      <p style="color: var(--muted);">In 2013, Nubank launched in a country where 60% of adults were unbanked, 80% of transactions were in cash, and incumbent banks were extractive and indifferent.</p>
+      <p style="color: var(--muted);">In 2026, NICO is launching in a market where 60%+ of adults are unbanked, 80%+ of transactions are in cash, and incumbent banks are extractive and indifferent.</p>
+      <p style="color: var(--cyan); font-style: italic; font-size: 0.95rem;">The numbers are not a coincidence. They are an invitation.</p>
+    </div>
+
+  </aside>
+</div>
+
+<!-- FINALE -->
+<div class="finale">
+  <h2>This Is Not a Business Opportunity.<br>It Is a Human One.</h2>
+
+  <p>The most important thing that Nubank and Revolut proved — more important than the revenue figures, more important than the valuations — is that you do not have to choose between doing good and doing well. Nubank serves 114 million people who were previously ignored, exploited, or excluded by the financial system. It is also the most profitable neobank in the world. These facts do not contradict each other — One caused the other.</p>
+
+  <p>When you build something that genuinely improves people's lives — that makes them feel capable, informed, and in control of their money — they don't just use it. They trust it. They bring their families. They become advocates. They stay. The loyalty of a customer who felt invisible until you noticed them is not like any other loyalty in business.</p>
+
+  <p>NICO is building for the Dominican Republic and the Caribbean with exactly this understanding. The product features — the round-ups, the Fintech Bites, the empathetic credit — are not marketing. They are the architecture of an institution that respects its users. The mission to close the gender gap in account ownership is not a PR strategy. It is a statement about what kind of bank NICO intends to be.</p>
+
+  <p>The window is open. The proof is in. The infrastructure is ready. The people are waiting. The only remaining question is the oldest one in entrepreneurship: who will have the courage to walk through?</p>
+
+  <p class="tagline">"Bank Less. Vive Más." — and for the first time in the Caribbean's financial history, that's not a promise. It's a plan.</p>
+</div>
+
+<!-- CTA STRIP -->
+<div class="cta-strip">
+  <p>Ready to see the numbers?</p>
+  <div class="cta-btns">
+    <a class="cta-primary" href="index.html">← View Investor Deck</a>
+    <a class="cta-secondary" href="nico_founders.html">How Neobanks Are Built →</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2026 Nico Money</span>
+  <span>Sources: Nubank FY2025 · Revolut Annual Report 2025 · World Bank Global Findex 2025 · <a href="https://www.nicobank.co" target="_blank">nicobank.co</a></span>
+</footer>
+
+</body>
+</html>
